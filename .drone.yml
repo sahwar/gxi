@@ -40,10 +40,11 @@ steps:
     GIT_AUTHOR_EMAIL: drone@exqa.de
     GIT_AUTHOR_NAME: drone
   commands:
-  - apt-get update && apt-get install -y libgtk-3-dev cmake meson
+  - apt-get update && apt-get install -y libgtk-3-dev gettext appstream-util desktop-file-utils meson
   - meson _build
   - ninja -C _build
-  - ninja -C _build test
+  - cd _build
+  - meson test --print-errorlogs
 
 - name: matrix-notification
   image: plugins/matrix
@@ -59,6 +60,6 @@ steps:
     - failure
 ---
 kind: signature
-hmac: 97c8494db0d0014bf724d22bb87996c0ec36dcd03e9d37d237b62d8303385dd7
+hmac: b8483bc63f898de173adf4966410e19f235fa3887890fcb7bd00ad7302bc3d3f
 
 ...
